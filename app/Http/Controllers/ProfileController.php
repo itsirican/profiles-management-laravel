@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller {
   public function index() {
@@ -12,8 +14,10 @@ class ProfileController extends Controller {
     return view('profile.profiles', compact('profiles'));
   }
 
-  public function show(Request $request) {
-    $profile = Profile::findOrFail((int)$request->id);
+  public function show(Profile $profile) {
+    // dd($profile);
+    // $profile = Profile::findOrFail((int)$request->id);
+    
     // if ($profile == NULL) {
     //   return abort(404);
     // }
@@ -23,7 +27,7 @@ class ProfileController extends Controller {
   public function create() {
     return view('profile.create');
   }
-  public function store(Request $request) {
+  public function store(ProfileRequest $request) {
     // dd($request);
     
     // $name = $request->name;
@@ -31,21 +35,28 @@ class ProfileController extends Controller {
     // $password = $request->password;
     // $bio = $request->bio;
 
-    // Verification
+    // // Verification method 1
+    // $verifiedFields = $request->validate([
+    //   'name' => 'required|min:5|max:20',
+    //   'email' => 'required|email|unique:profiles',
+    //   'password' => 'required|min:8|same:repeted_password',
+    // ], [
+    //   // 'name.required' => 'name is required'
+    // ]);
+
+    // Verification method 2 [Request Validation class]
+    $verifiedFields = $request->validated();
+    
+
+    $verifiedFields['password'] = Hash::make($request->password);
+    // $verifiedFields['bio'] = $request->bio;
+    // dd($verifiedFields);
 
     // Insert
-    Profile::create($request->post());
+    // Profile::create($request->post());
+    Profile::create($verifiedFields);
 
-    return redirect()->route('profiles.index');
+    return redirect()->route('profiles.index')->with('success', 'Profile added successfuly');
 
-    // if ($_GET) {
-    //   Profile::insert($_GET);
-    // }
-    // return header('location:profiles');
-    // return Route('profiles.index');
-    // return $this->index();
-    // redirect(Route('profiles.index'));
-    // dd($_GET);
-    // return "Store";
   }
 }

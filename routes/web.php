@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, "index"])->name('home');
 Route::get('/profiles', [ProfileController::class, "index"])->name('profiles.index');
-Route::get('/profiles/{id}', [ProfileController::class, "show"])
-->where('id', '\d+')
-->name('profile.show');
 Route::get('/profiles/create', [ProfileController::class, "create"])->name('profile.create');
+Route::get('/profiles/{profile}', [ProfileController::class, "show"])
+->where('profile', '\d+')
+->name('profile.show');
 Route::post('/profiles/store', [ProfileController::class, "store"])->name('profile.store');
 Route::get('/settings', [InformationsController::class, "index"])->name('settings.index');
 

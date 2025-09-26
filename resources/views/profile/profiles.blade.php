@@ -1,5 +1,6 @@
 {{-- @extends('layout.master') --}}
 <x-master-layout title="Profile">
+  @include('partials.flashbag')
   <h2>Profiles</h2>
   {{-- <table class="table">
     <tr>

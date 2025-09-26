@@ -12,4 +12,8 @@ class Profile extends Model
     protected $fillable = [
         'name', 'email', 'password', 'bio'
     ];
+
+    // public function getRouteKeyName() {
+    //     return 'email';
+    // }
 }
