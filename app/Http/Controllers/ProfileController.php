@@ -6,12 +6,17 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller {
   public function index() {
     $profiles = Profile::paginate(9);
-    return view('profile.profiles', compact('profiles'));
+    if (Auth::check()) {
+      return view('profile.profiles', compact('profiles'));
+    } else {
+      return to_route('login.show');
+    }
   }
 
   public function show(Profile $profile) {

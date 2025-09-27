@@ -7,9 +7,11 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{route('home')}}">Home</a>
-      </li>
+      @guest
+        <li class="nav-item active">
+          <a class="nav-link" href="{{route('home')}}">Home</a>
+        </li>
+      @endguest
       <li class="nav-item">
         <a class="nav-link" href="{{route('profiles.index')}}">Profiles</a>
       </li>
@@ -19,6 +21,25 @@
       <li class="nav-item">
         <a class="nav-link" href="{{route('profile.create')}}">Add Profile</a>
       </li>
+      @guest
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('login.show')}}">Login</a>
+        </li>
+      @endguest
+      @auth
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            {{ auth()->user()->name }}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="{{route('login.logout')}}">Logout</a>
+          </div>
+        </div>
+        <li class="nav-item">
+
+        </li>
+      @endauth
     </ul>
   </div>
 </nav>
