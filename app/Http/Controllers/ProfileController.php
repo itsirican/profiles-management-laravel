@@ -64,4 +64,13 @@ class ProfileController extends Controller {
     return redirect()->route('profiles.index')->with('success', 'Profile added successfuly');
 
   }
+
+  public function destroy(Profile $profile) {
+    $profile->delete();
+    return to_route('profiles.index')->with('success', 'Profile deleted successfully');
+  }
+
+  public function edit(Profile $profile) {
+    return view('profile.edit', compact('profile'));
+  }
 }
