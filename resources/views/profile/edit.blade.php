@@ -45,9 +45,9 @@
       <label for="repeted_password" class="form-label">Confirm Password</label>
       <input type="password" name="repeted_password" id="repeted_password" class="form-control"
         value="{{old('repeted_password')}}" />
-      {{-- @error('password')
-      <div class="text-danger">{{$message}}</div>
-      @enderror --}}
+      @error('password')
+        <div class="text-danger">{{$message}}</div>
+      @enderror
     </div>
     <div class=" mb-3">
       <label for="bio" class="form-label">Bio</label>
