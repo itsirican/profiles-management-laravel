@@ -51,9 +51,11 @@ class ProfileController extends Controller {
 
     // Verification method 2 [Request Validation class]
     $verifiedFields = $request->validated();
-    
 
     $verifiedFields['password'] = Hash::make($request->password);
+
+    $verifiedFields['image'] = $request->file('image')->store('profile', 'public');
+
     // $verifiedFields['bio'] = $request->bio;
     // dd($verifiedFields);
 

@@ -1,6 +1,6 @@
 @props(['profile', 'limit' => NULL])
 <div class="card">
-  <img class="card-img-top" style="height: 600px;" src="https://picsum.photos/id/{{$profile->id + 10}}/200/300"
+  <img class="card-img-top" style="height: 600px; object-fit: cover;" src="{{asset('storage/' . $profile->image)}}"
     alt="Title" />
   <div class="card-body">
     <h4 class="card-title">{{$profile->name}}</h4>
