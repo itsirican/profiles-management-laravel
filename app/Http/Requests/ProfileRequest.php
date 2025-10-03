@@ -23,7 +23,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:20',
-            'email' => 'required|email|unique:profiles',
+            'email' => 'required|email',
             'password' => 'required|min:8|same:repeted_password',
             'bio' => 'required'
         ];
