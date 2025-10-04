@@ -12,6 +12,7 @@
         <p class="card-body">{{$profile->bio}}</p>
       </div>
     </div> --}}
+    <h6 class="card-title">Created At: {{$profile->created_at->format('d-m-Y')}}</h6>
     <x-profile-card :profile="$profile" :limit="NULL" />
   </div>
 </x-master-layout>

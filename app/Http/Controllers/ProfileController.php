@@ -53,8 +53,9 @@ class ProfileController extends Controller {
     $verifiedFields = $request->validated();
 
     $verifiedFields['password'] = Hash::make($request->password);
-
-    $verifiedFields['image'] = $request->file('image')->store('profile', 'public');
+    if ($request->hasFile('image')) {
+      $verifiedFields['image'] = $request->file('image')->store('profile', 'public');
+    }
 
     // $verifiedFields['bio'] = $request->bio;
     // dd($verifiedFields);
@@ -78,9 +79,15 @@ class ProfileController extends Controller {
 
   public function update(ProfileRequest $request, Profile $profile) {
     $formFields = $request->validated();
+    $formFields['password'] = Hash::make($request->password);
+    // $formFields['image'] = $this->uploadImage($request);
+    if ($request->hasFile('image')) {
+     $formFields['image'] = $request->file('image')->store('profile', 'public');
+    }
+    // dd($formFields);
     $profile->fill($formFields)->save();
 
     return to_route('profiles.edit', $profile->id)->with('success', 'Profile updated successfully');
   }
-
+  
 }
