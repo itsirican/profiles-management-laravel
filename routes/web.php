@@ -11,6 +11,37 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// Route::get('/profiles', [ProfileController::class, "index"])->name('profiles.index');
+// Route::get('/profiles/create', [ProfileController::class, "create"])->name('profile.create');
+// Route::get('/profiles/{profile}', [ProfileController::class, "show"])
+// ->where('profile', '\d+')
+// ->name('profile.show');
+// Route::post('/profiles/store', [ProfileController::class, "store"])->name('profile.store');
+
+// Route::delete('/profiles/{profile}', [ProfileController::class, "destroy"])
+// ->name("profiles.destroy");
+
+// Route::get('/profiles/{profile}/edit', [ProfileController::class, "edit"])
+// ->name('profiles.edit');
+
+// Route::put('/profiles/{profile}', [ProfileController::class, "update"])
+// ->name('profiles.update');
+
+
+Route::get('/profiles', [ProfileController::class, "index"])->name('profiles.index');
+Route::get('/profiles/create', [ProfileController::class, "create"])->name('profile.create');
+Route::post('/profiles', [ProfileController::class, "store"])->name('profiles.store');
+Route::delete('/profiles/{profile}', [ProfileController::class, "destroy"])
+->name("profiles.destroy");
+Route::get('/profiles/{profile}/edit', [ProfileController::class, "edit"])
+->name('profiles.edit');
+Route::put('/profiles/{profile}', [ProfileController::class, "update"])
+->name('profiles.update');
+
+Route::get('/profiles/{profile}', [ProfileController::class, "show"])
+->where('profile', '\d+')
+->name('profile.show');
+
 Route::get('/', [HomeController::class, "index"])->name('home');
 
 Route::get('/login', [LoginController::class, "show"])->name("login.show");
@@ -18,24 +49,11 @@ Route::post('/login', [LoginController::class, "login"])->name("login");
 
 Route::get('/logout', [LoginController::class, "logout"])->name("login.logout");
 
-Route::get('/profiles', [ProfileController::class, "index"])->name('profiles.index');
-Route::get('/profiles/create', [ProfileController::class, "create"])->name('profile.create');
-Route::get('/profiles/{profile}', [ProfileController::class, "show"])
-->where('profile', '\d+')
-->name('profile.show');
-Route::post('/profiles/store', [ProfileController::class, "store"])->name('profile.store');
 
-Route::delete('/profiles/{profile}', [ProfileController::class, "destroy"])
-->name("profiles.destroy");
-
-Route::get('/profiles/{profile}/edit', [ProfileController::class, "edit"])
-->name('profiles.edit');
-
-Route::put('/profiles/{profile}', [ProfileController::class, "update"])
-->name('profiles.update');
 
 
 Route::get('/settings', [InformationsController::class, "index"])->name('settings.index');
+
 
 // Route::get('/{id}', function(Request $request) {
 //     // dd($request->id);

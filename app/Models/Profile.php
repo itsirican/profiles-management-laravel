@@ -16,6 +16,11 @@ class Profile extends Model
         'name', 'email', 'password', 'bio', 'image'
     ];
 
+    public function getImageAttribute($value) {
+        return $value??'profile/profile.png';
+    }
+
+
     // public function getRouteKeyName() {
     //     return 'email';
     // }
