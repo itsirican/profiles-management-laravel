@@ -19,7 +19,7 @@
         <a class="nav-link" href="{{route('settings.index')}}">Settings</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('profile.create')}}">Add Profile</a>
+        <a class="nav-link" href="{{route('profiles.create')}}">Add Profile</a>
       </li>
       @guest
         <li class="nav-item">

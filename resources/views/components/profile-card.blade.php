@@ -8,7 +8,7 @@
     {{-- <p class="card-body">{{$profile->bio}}</p> --}}
     <p class="card-body">{{$limit ? Str::limit($profile->bio, $limit) : $profile->bio}}</p>
     @if ($limit)
-      <a href="{{Route('profile.show', $profile->id)}}" class="stretched-link"></a>
+      <a href="{{Route('profiles.show', $profile->id)}}" class="stretched-link"></a>
     @endif
   </div>
   <div class="card-footer border-top px-3 py-2 bg-light" style="z-index: 9">

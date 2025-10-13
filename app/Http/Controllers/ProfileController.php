@@ -13,7 +13,7 @@ class ProfileController extends Controller {
   public function index() {
     $profiles = Profile::paginate(9);
     if (Auth::check()) {
-      return view('profile.profiles', compact('profiles'));
+      return view('profiles.profiles', compact('profiles'));
     } else {
       return to_route('login.show');
     }
@@ -26,11 +26,11 @@ class ProfileController extends Controller {
     // if ($profile == NULL) {
     //   return abort(404);
     // }
-    return view('profile.show', compact('profile'));
+    return view('profiles.show', compact('profile'));
   }
 
   public function create() {
-    return view('profile.create');
+    return view('profiles.create');
   }
   public function store(ProfileRequest $request) {
     // dd($request);
@@ -53,9 +53,10 @@ class ProfileController extends Controller {
     $verifiedFields = $request->validated();
 
     $verifiedFields['password'] = Hash::make($request->password);
-    if ($request->hasFile('image')) {
-      $verifiedFields['image'] = $request->file('image')->store('profile', 'public');
-    }
+    // if ($request->hasFile('image')) {
+    //   $verifiedFields['image'] = $request->file('image')->store('profile', 'public');
+    // }
+    $this->uploadImage($request, $formFields);
 
     // $verifiedFields['bio'] = $request->bio;
     // dd($verifiedFields);
@@ -74,20 +75,27 @@ class ProfileController extends Controller {
   }
 
   public function edit(Profile $profile) {
-    return view('profile.edit', compact('profile'));
+    return view('profiles.edit', compact('profile'));
   }
 
   public function update(ProfileRequest $request, Profile $profile) {
     $formFields = $request->validated();
     $formFields['password'] = Hash::make($request->password);
-    // $formFields['image'] = $this->uploadImage($request);
-    if ($request->hasFile('image')) {
-     $formFields['image'] = $request->file('image')->store('profile', 'public');
-    }
+    $this->uploadImage($request, $formFields);
+    // if ($request->hasFile('image')) {
+    //  $formFields['image'] = $request->file('image')->store('profile', 'public');
+    // }
     // dd($formFields);
     $profile->fill($formFields)->save();
 
     return to_route('profiles.edit', $profile->id)->with('success', 'Profile updated successfully');
+  }
+
+  private function uploadImage(ProfileRequest $request, &$formFields) {
+    unset($formFields['image']);
+    if ($request->hasFile('image')) {
+     $formFields['image'] = $request->file('image')->store('profile', 'public');
+    }
   }
   
 }
