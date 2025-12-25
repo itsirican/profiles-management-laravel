@@ -19,7 +19,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return to_route('home')->with("success", "Welcme! you logged in successfully ".$email);
+            return to_route('profiles.index')->with("success", "Welcme! you logged in successfully ".$email);
         } else {
             return redirect()->back()
             ->withErrors(["email" => "Email or password is incorrect"])

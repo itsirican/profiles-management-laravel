@@ -44,18 +44,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('profiles', ProfileController::class);
 
+Route::middleware('guest')->group(function() {
+  Route::get('/', [HomeController::class, "index"])->name('home');
+  Route::get('/login', [LoginController::class, "show"])->name("login.show");
+  Route::post('/login', [LoginController::class, "login"])->name("login");
+});
 
-Route::get('/', [HomeController::class, "index"])->name('home');
-
-Route::get('/login', [LoginController::class, "show"])->name("login.show");
-Route::post('/login', [LoginController::class, "login"])->name("login");
-
-Route::get('/logout', [LoginController::class, "logout"])->name("login.logout");
-
-
-
-
-Route::get('/settings', [InformationsController::class, "index"])->name('settings.index');
+Route::middleware('auth')->group(function() {
+  Route::get('/logout', [LoginController::class, "logout"])->name("login.logout");
+  Route::get('/settings', [InformationsController::class, "index"])->name('settings.index');
+});
 
 
 // Route::get('/{id}', function(Request $request) {
