@@ -13,7 +13,7 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        //
+        // return view('publications.publications');
     }
 
     /**
@@ -33,7 +33,7 @@ class PublicationController extends Controller
         $this->uploadImage($request, $validatedFields);
         // dd($validatedFields);
         Publication::create($validatedFields);
-        to_route('publications.index');
+        return to_route('publications.index');
         // dd($request->input(), $request->file('image'));
     }
 
@@ -50,15 +50,19 @@ class PublicationController extends Controller
      */
     public function edit(Publication $publication)
     {
-        //
+        return view('publications.edit', compact('publication'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Publication $publication)
+    public function update(PublicationRequest $request, Publication $publication)
     {
-        //
+        $validatedFields = $request->validated();
+        $this->uploadImage($request, $validatedFields);
+        // dd($validatedFields);
+        $publication->fill($validatedFields)->save();
+        return to_route('publications.index')->with('Success', 'Publication udpated successfully');
     }
 
     /**
