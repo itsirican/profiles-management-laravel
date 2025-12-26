@@ -13,7 +13,8 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        // return view('publications.publications');
+        $publications = Publication::latest()->get();
+        return view('publications.index', compact('publications'));
     }
 
     /**
@@ -33,7 +34,7 @@ class PublicationController extends Controller
         $this->uploadImage($request, $validatedFields);
         // dd($validatedFields);
         Publication::create($validatedFields);
-        return to_route('publications.index');
+        return to_route('publications.index')->with('success', 'Publication created successfully');;
         // dd($request->input(), $request->file('image'));
     }
 
@@ -62,7 +63,7 @@ class PublicationController extends Controller
         $this->uploadImage($request, $validatedFields);
         // dd($validatedFields);
         $publication->fill($validatedFields)->save();
-        return to_route('publications.index')->with('Success', 'Publication udpated successfully');
+        return to_route('publications.index')->with('success', 'Publication udpated successfully');
     }
 
     /**
@@ -70,7 +71,8 @@ class PublicationController extends Controller
      */
     public function destroy(Publication $publication)
     {
-        //
+        $publication->delete();
+        return to_route('publications.index')->with('success', 'Publication deleted successfully');
     }
 
     private function uploadImage(PublicationRequest $request, &$formFields) {
