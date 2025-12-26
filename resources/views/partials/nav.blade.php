@@ -12,12 +12,14 @@
           <a class="nav-link" href="{{route('home')}}">Home</a>
         </li>
       @endguest
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('profiles.index')}}">Profiles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('settings.index')}}">Settings</a>
-      </li>
+      @auth
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('profiles.index')}}">Profiles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('settings.index')}}">Settings</a>
+        </li>
+      @endauth
       <li class="nav-item">
         <a class="nav-link" href="{{route('profiles.create')}}">Add Profile</a>
       </li>
@@ -38,6 +40,9 @@
         </div>
         <li class="nav-item">
 
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('publications.create')}}">Publications</a>
         </li>
       @endauth
     </ul>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PublicationRequest;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 
@@ -20,15 +21,20 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        //
+        return view('publications.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PublicationRequest $request)
     {
-        //
+        $validatedFields = $request->validated();
+        $this->uploadImage($request, $validatedFields);
+        // dd($validatedFields);
+        Publication::create($validatedFields);
+        to_route('publications.index');
+        // dd($request->input(), $request->file('image'));
     }
 
     /**
@@ -62,4 +68,11 @@ class PublicationController extends Controller
     {
         //
     }
+
+    private function uploadImage(PublicationRequest $request, &$formFields) {
+        unset($formFields['image']);
+        if ($request->hasFile('image')) {
+        $formFields['image'] = $request->file('image')->store('publication', 'public');
+    }
+  }
 }

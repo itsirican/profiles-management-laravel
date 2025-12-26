@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::resource('profiles', ProfileController::class);
+Route::resource('publications', PublicationController::class);
 
 Route::middleware('guest')->group(function() {
   Route::get('/', [HomeController::class, "index"])->name('home');
@@ -53,6 +55,20 @@ Route::middleware('guest')->group(function() {
 Route::middleware('auth')->group(function() {
   Route::get('/logout', [LoginController::class, "logout"])->name("login.logout");
   Route::get('/settings', [InformationsController::class, "index"])->name('settings.index');
+});
+
+// Route::get('/current',function() {
+//   // dd(Route::currentRouteName());
+//   // dd(Route::currentRouteAction());
+//   // dd(Route::currentRouteAction());
+//   dd(Route::current());
+// });
+
+Route::get('/cache', function() {
+  return 'hello cache';
+});
+Route::get('/clear', function() {
+  return 'hello clear';
 });
 
 
