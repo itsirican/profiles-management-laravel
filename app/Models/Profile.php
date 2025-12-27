@@ -20,6 +20,10 @@ class Profile extends Model
         return $value??'profile/profile.png';
     }
 
+    public function publications() {
+        return $this->hasMany(Publication::class);
+    }
+
 
     // public function getRouteKeyName() {
     //     return 'email';

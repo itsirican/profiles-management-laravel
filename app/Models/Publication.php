@@ -11,4 +11,8 @@ class Publication extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['title', 'body', 'image', 'profile_id'];
+
+    public function profile() {
+        return $this->belongsTo(Profile::class);
+    }
 }

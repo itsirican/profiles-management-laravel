@@ -7,6 +7,7 @@ use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PublicationController extends Controller
 {
@@ -61,6 +62,7 @@ class PublicationController extends Controller
      */
     public function edit(Publication $publication)
     {
+        Gate::authorize('update-pub', $publication);
         return view('publications.edit', compact('publication'));
     }
 
