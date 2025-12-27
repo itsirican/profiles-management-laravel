@@ -1,20 +1,35 @@
 {{-- @props(['publication']) --}}
 <div class="card my-2 bg-light">
   <div class="card-body">
-    @auth
-      @if ($canUpdate)
-        <div style="float: inline-end">
-          <a class="float-end btn btn-primary btn-sm" href="{{ route('publications.edit', $publication->id) }}">Edit</a>
-          <form action="{{ route('publications.destroy', $publication->id) }}" method="POST" class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button onclick="return confirm('Are you sure, you want to delete this publication')"
-              class="mx-1 float-end btn btn-danger btn-sm">
-              Delete</button>
-          </form>
-        </div>
-      @endif
-    @endauth
+    {{-- @auth
+    @if ($canUpdate)
+    <div style="float: inline-end">
+      <a class="float-end btn btn-primary btn-sm" href="{{ route('publications.edit', $publication->id) }}">Edit</a>
+      <form action="{{ route('publications.destroy', $publication->id) }}" method="POST" class="d-inline">
+        @csrf
+        @method('DELETE')
+        <button onclick="return confirm('Are you sure, you want to delete this publication')"
+          class="mx-1 float-end btn btn-danger btn-sm">
+          Delete</button>
+      </form>
+    </div>
+    @endif
+    @endauth --}}
+
+    <div style="float: inline-end">
+      @can('update', $publication)
+        <a class="float-end btn btn-primary btn-sm" href="{{ route('publications.edit', $publication->id) }}">Edit</a>
+      @endcan
+      @can('delete', $publication)
+        <form action="{{ route('publications.destroy', $publication->id) }}" method="POST" class="d-inline">
+          @csrf
+          @method('DELETE')
+          <button onclick="return confirm('Are you sure, you want to delete this publication')"
+            class="mx-1 float-end btn btn-danger btn-sm">
+            Delete</button>
+        </form>
+      @endcan
+    </div>
     <blockquote class="blockquote mb-0">
       <div style="display: flex; align-items: center; gap: 15px; width: fit-content;
         position: relative;">

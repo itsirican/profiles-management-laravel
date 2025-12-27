@@ -17,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-
+    
+    
     /**
      * Bootstrap any application services.
      */
@@ -25,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
-        Gate::define('update-pub', function(GenericUser $profile, Publication $publication) {
-            return $profile->id === $publication->profile->id;
-        });
+        // Gate::define('update-pub', function(GenericUser $profile, Publication $publication) {
+        //     return $profile->id === $publication->profile->id;
+        // });
     }
 }

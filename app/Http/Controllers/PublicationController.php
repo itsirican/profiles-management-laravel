@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PublicationRequest;
 use App\Models\Publication;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Gate;
 
 class PublicationController extends Controller
 {
+    // import it touse $this->authorize(...)
+    // use AuthorizesRequests;
 
     public function __construct()
     {
@@ -60,9 +63,16 @@ class PublicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Publication $publication)
+    public function edit(Publication $publication, Request $request)
     {
-        Gate::authorize('update-pub', $publication);
+        // if ($request->user()->cannot('update', $publication)) {
+        //     abort(403);
+        // }
+
+        // $this->authorize('update', $publication);
+        
+        Gate::authorize('update', $publication);
+
         return view('publications.edit', compact('publication'));
     }
 
@@ -71,6 +81,8 @@ class PublicationController extends Controller
      */
     public function update(PublicationRequest $request, Publication $publication)
     {
+        // Gate::authorize('update-pub', $publication);
+        Gate::authorize('update', $publication);
         $validatedFields = $request->validated();
         $this->uploadImage($request, $validatedFields);
         // dd($validatedFields);

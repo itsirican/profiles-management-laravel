@@ -3,7 +3,8 @@
   <div class="container w-75 mx-auto">
     <div>
       @foreach ($publications as $publication)
-        <x-publication :publication="$publication" :canUpdate="auth()->user()->id === $publication->profile_id" />
+        <x-publication :publication="$publication" {{-- :canUpdate="auth()->user()->id === $publication->profile_id"
+          --}} />
         {{-- <div class="card my-2 bg-light">
           <div class="card-body">
             @auth
